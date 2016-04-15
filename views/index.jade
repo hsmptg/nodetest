@@ -1,33 +1,45 @@
+doctype html
 html
     head
-    script(type='text/javascript' src='http://code.jquery.com/jquery.min.js')
-    script(type='text/javascript' src='js/socket.io.js')
-    script.
-        var socket = io();
+        meta(charset='utf-8')
+        meta(http-equiv='X-UA-Compatible', content='IE=edge')
 
-        function changeLed(id) {
-            console.log("xxx");
-            var element = document.getElementById(id);
-            var state = element.src.match('off') != null;
-            if (state)
-                element.src = 'imgs/buton.png';
-            else
-                element.src = 'imgs/butoff.png';
-            socket.emit('led', {state: state});
-        };
+        title= WebButLED
 
-        $(document).ready(function() {
-            socket.on('but', function (data) {
-                console.log('but ' + data);
-                var element = document.getElementById('led');
-                if (data.state)
-                    element.src = 'imgs/ledon.png';
+        meta(name='description', content='')
+        meta(name='viewport', content='width=device-width, initial-scale=1')
+
+        script(type='text/javascript' src='http://code.jquery.com/jquery.min.js')
+        script(type='text/javascript' src='js/socket.io.js')
+        script.
+            var socket = io();
+
+            function changeLed(id) {
+                var element = document.getElementById(id);
+                var state = element.src.match('off') != null;
+                if (state)
+                    element.src = 'imgs/buton.png';
                 else
-                    element.src = 'imgs/ledoff.png';
+                    element.src = 'imgs/butoff.png';
+                socket.emit('led', {state: state});
+            }
+
+            $(document).ready(function() {
+                socket.on('but', function (data) {
+                    var element = document.getElementById('led');
+                    if (data.state)
+                        element.src = 'imgs/ledon.png';
+                    else
+                        element.src = 'imgs/ledoff.png';
+                });
             });
-        });
 body
-    h1 Hello
-    p Texto
-    img#but(src= 'imgs/butoff.png' onclick="changeLed(this.id)")
-    img#led(src= 'imgs/ledoff.png')
+    h1 Raspberry Pi
+    h3 Button and LED remote web control
+    div
+        p.text-center
+            img#but(src= 'imgs/butoff.png' onclick="changeLed(this.id)")
+            <br />
+    div
+        p.text-center
+            img#led(src= 'imgs/ledoff.png')
