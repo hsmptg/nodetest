@@ -1,0 +1,33 @@
+html
+    head
+    script(type='text/javascript' src='http://code.jquery.com/jquery.min.js')
+    script(type='text/javascript' src='js/socket.io.js')
+    script.
+        var socket = io();
+
+        function changeLed(id) {
+            console.log("xxx");
+            var element = document.getElementById(id);
+            var state = element.src.match('off') != null;
+            if (state)
+                element.src = 'imgs/buton.png';
+            else
+                element.src = 'imgs/butoff.png';
+            socket.emit('led', {state: state});
+        };
+
+        $(document).ready(function() {
+            socket.on('but', function (data) {
+                console.log('but ' + data);
+                var element = document.getElementById('led');
+                if (data.state)
+                    element.src = 'imgs/ledon.png';
+                else
+                    element.src = 'imgs/ledoff.png';
+            });
+        });
+body
+    h1 Hello
+    p Texto
+    img#but(src= 'imgs/butoff.png' onclick="changeLed(this.id)")
+    img#led(src= 'imgs/ledoff.png')
