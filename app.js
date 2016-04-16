@@ -6,13 +6,13 @@ var os = require('os');
 
 // if in a Raspberry Pi require 'pigpio'
 if (os.cpus()[0].model.indexOf('ARM') > -1) {
-    var Gpio = require('pigpio').Gpio,
-        button = new Gpio(23, {
+    var Gpio = require('pigpio').Gpio;
+    var button = new Gpio(23, {
             mode: Gpio.INPUT,
             pullUpDown: Gpio.PUD_UP,
             edge: Gpio.EITHER_EDGE
-        }),
-        led = new Gpio(16, {mode: Gpio.OUTPUT});
+        });
+    var led = new Gpio(16, {mode: Gpio.OUTPUT});
 
     button.on('interrupt', function (level) {
         console.log('but= ' + level);
