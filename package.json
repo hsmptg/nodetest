@@ -9,8 +9,8 @@
   "author": "Helio Mendonca",
   "license": "MIT",
   "dependencies": {
+    "ejs": "^2.4.1",
     "express": "^4.13.4",
-    "jade": "^1.11.0",
     "os": "0.0.0",
     "socket.io": "^1.4.5"
   },
