@@ -1,0 +1,45 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv='X-UA-Compatible', content='IE=edge'>
+
+    <title>WebButLED</title>
+
+    <meta name='description', content=''>
+    <meta name='viewport', content='width=device-width, initial-scale=1'>
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+    <script type="text/javascript" src="js/socket.io.js"></script>
+    <script>
+        var socket = io();
+
+        function changeLed(id) {
+            var element = document.getElementById(id);
+            var state = element.src.match('off') != null;
+            if (state)
+                element.src = 'imgs/buton.png';
+            else
+                element.src = 'imgs/butoff.png';
+            socket.emit('led', {state: state});
+        }
+
+        $(document).ready(function() {
+            socket.on('but', function (data) {
+                var element = document.getElementById('led');
+                if (data.state)
+                    element.src = 'imgs/ledon.png';
+                else
+                    element.src = 'imgs/ledoff.png';
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>Raspberry Pi</h1>
+    <h3>Button and LED remote web control</h3>
+    <div>
+        <p></p><img id="but" onclick="changeLed(this.id)" src="imgs/butoff.png"></p>
+        <p><img id="led" src="imgs/ledoff.png"></p>
+    </div>
+</body>
+</html>
