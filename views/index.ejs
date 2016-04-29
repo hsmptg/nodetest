@@ -1,12 +1,12 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv='X-UA-Compatible', content='IE=edge'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
 
     <title>WebButLED</title>
 
-    <meta name='description', content=''>
-    <meta name='viewport', content='width=device-width, initial-scale=1'>
+    <meta name='description' content=''>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
 
     <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
     <script type="text/javascript" src="js/socket.io.js"></script>
@@ -15,7 +15,7 @@
 
         function changeLed(id) {
             var element = document.getElementById(id);
-            var state = element.src.match('off') != null;
+            var state = (element.src.match(/off/g) != null)
             if (state)
                 element.src = 'imgs/buton.png';
             else
@@ -38,7 +38,7 @@
     <h1>Raspberry Pi</h1>
     <h3>Button and LED remote web control</h3>
     <div>
-        <p></p><img id="but" onclick="changeLed(this.id)" src="imgs/butoff.png"></p>
+        <p><img id="but" onclick="changeLed(this.id)" src="imgs/butoff.png"></p>
         <p><img id="led" src="imgs/ledoff.png"></p>
     </div>
 </body>
