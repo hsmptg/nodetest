@@ -3,6 +3,8 @@ var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var os = require('os');
+var passport = require('passport');
+var Strategy = require('passport-local').Strategy;
 
 // if in a Raspberry Pi require 'pigpio'
 if (os.cpus()[0].model.indexOf('ARM') > -1) {
